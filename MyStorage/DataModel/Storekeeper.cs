@@ -8,8 +8,8 @@ namespace MyStorage.DataModel
 {
     class Storekeeper : User
     {
-        public Storekeeper(string fio, string secondname, string lastname, string phonenumber, string role) 
-            : base(fio, secondname, lastname, phonenumber, role)
+        public Storekeeper(int id, string fio, string phonenumber, string role,string passhash,string login) 
+            : base(id, fio, phonenumber, role,passhash,login)
         {
         }
     }

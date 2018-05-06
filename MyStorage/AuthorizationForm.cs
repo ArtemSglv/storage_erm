@@ -19,7 +19,14 @@ namespace MyStorage
 
         private void butEnter_Click(object sender, EventArgs e)
         {
-            CurrentUser.user = Authentificator.CheckUser(textBoxLogin.Text, textBoxPass.Text);
+            if (Authenticator.CheckUser(textBoxLogin.Text, textBoxPass.Text))
+                switch (CurrentUser.user.Role)
+                {
+                    case "seller": { new StoreForm().Show();  break; }
+                    case "storekeeper": { new StorageForm().Show();  break; }
+                    case "manager": { new PartnerForm().Show(); break; }
+                }
+            Close();
         }
     }
 }

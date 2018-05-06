@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyStorage.Database
 {
-    class MySql
+    class DB
     {
         public static MySqlConnection connection;
 
@@ -34,9 +34,10 @@ namespace MyStorage.Database
             MySqlCommand msc = new MySqlCommand(sql, connection);
             msc.ExecuteNonQuery();
         }
-        public static string Select(string sql)
+        public static List<string> Select(string sql)
         {
-            string result = "";
+            List<string> result =new List<string>();
+            string str = "";
             using (MySqlCommand command = connection.CreateCommand())
             {
                 command.CommandText = sql;
@@ -44,7 +45,11 @@ namespace MyStorage.Database
                 {
                     while (r.Read())
                     {
-                        result += (int)r[0] + " " + r[1] + "$";
+                        
+                        for(int i=0;i<r.FieldCount;i++)
+                            //result += (int)r[0] + " " + r[1] + "$";
+                            str += r[i]+" ";
+                        result.Add(str);
                     }
                 }
             }

@@ -6,32 +6,30 @@ using System.Threading.Tasks;
 
 namespace MyStorage.DataModel
 {
-    class  User
+    class User
     {
+        public int ID { get => id; set => id = value; }
         public string FIO { get => fio; set => fio = value; }
         public string Phonenumber { get => phonenumber; set => phonenumber = value; }
         public string Role { get => role; set => role = value; }
-        public string Login { get => login; set => login = value; } 
+        public string Login { get => login; set => login = value; }
         public string Passhash { get => passhash; }
-        
-        public User(string fio,string secondname,string lastname,string phonenumber,string role,string passhash,string login)
+
+        public User(int id, string fio, string phonenumber, string role, string passhash, string login)
         {
+            this.id = id;
             this.fio = fio;
             this.phonenumber = phonenumber;
             this.role = role;
+            this.passhash = passhash;
+            this.login = login;
         }
 
-        public void Signin()
-        {
-
-        }
-
+        private int id;
         private string fio;
         private string phonenumber;
         private string role;
         private string passhash;
         private string login;
-        private string secondname;
-        private string lastname;
     }
 }
