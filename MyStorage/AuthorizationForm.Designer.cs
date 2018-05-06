@@ -39,7 +39,7 @@
             this.textBoxLogin.Name = "textBoxLogin";
             this.textBoxLogin.Size = new System.Drawing.Size(158, 22);
             this.textBoxLogin.TabIndex = 0;
-            this.textBoxLogin.Text = "Логин";
+            this.textBoxLogin.Text = "admin";
             // 
             // textBoxPass
             // 
@@ -47,7 +47,7 @@
             this.textBoxPass.Name = "textBoxPass";
             this.textBoxPass.Size = new System.Drawing.Size(158, 22);
             this.textBoxPass.TabIndex = 1;
-            this.textBoxPass.Text = "Пароль";
+            this.textBoxPass.Text = "admin";
             // 
             // butEnter
             // 
@@ -61,6 +61,7 @@
             // 
             // AuthorizationForm
             // 
+            this.AcceptButton = this.butEnter;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(262, 144);
@@ -70,7 +71,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "AuthorizationForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Authorization";
+            this.Text = "Авторизация";
             this.ResumeLayout(false);
             this.PerformLayout();
 

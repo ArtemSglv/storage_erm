@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyStorage.Database;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -31,6 +32,11 @@ namespace MyStorage
         private void входToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowFormAuthorization();
+        }
+
+        private void mainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DB.Close();
         }
     }
 }

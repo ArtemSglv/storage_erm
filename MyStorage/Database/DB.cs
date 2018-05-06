@@ -36,7 +36,7 @@ namespace MyStorage.Database
         }
         public static List<string> Select(string sql)
         {
-            List<string> result =new List<string>();
+            List<string> result = new List<string>();
             string str = "";
             using (MySqlCommand command = connection.CreateCommand())
             {
@@ -45,10 +45,10 @@ namespace MyStorage.Database
                 {
                     while (r.Read())
                     {
-                        
-                        for(int i=0;i<r.FieldCount;i++)
+
+                        for (int i = 0; i < r.FieldCount; i++)
                             //result += (int)r[0] + " " + r[1] + "$";
-                            str += r[i]+" ";
+                            str += r[i] + " ";
                         result.Add(str);
                     }
                 }
@@ -90,7 +90,8 @@ namespace MyStorage.Database
         }
         public static void Close()
         {
-            connection.Close();
+            if (connection != null)
+                connection.Close();
         }
     }
 }

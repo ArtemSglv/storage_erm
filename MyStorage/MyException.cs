@@ -4,14 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyStorage.DataModel
+namespace MyStorage
 {
-    class Store
+    public class AuthenticationException : Exception
     {
-        public List<Product> products;
-        public Store()
+        public AuthenticationException(string message) : base(message)
         {
-            products = new List<Product>();
         }
     }
 }

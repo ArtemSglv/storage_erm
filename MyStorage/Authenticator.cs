@@ -11,12 +11,6 @@ namespace MyStorage
 {
     class Authenticator
     {
-        public class AuthenticationException : Exception
-        {
-            public AuthenticationException(string message): base(message)
-            {
-            }
-        }
 
         public static bool CheckUser(string login, string pass)
         {
