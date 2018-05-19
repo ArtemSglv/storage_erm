@@ -111,7 +111,9 @@
             this.MaximumSize = new System.Drawing.Size(926, 534);
             this.MinimumSize = new System.Drawing.Size(241, 207);
             this.Name = "StoreForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Магазин";
+            this.Load += new System.EventHandler(this.StoreForm_Load);
             this.panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);

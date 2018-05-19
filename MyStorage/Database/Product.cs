@@ -10,15 +10,11 @@ namespace MyStorage.DataModel
     {
         public int id;
         public string Name="";        
-        public string About="";
-        public int count;
-        public double price;
-        public Product(int id,string name,int count,double price,string about)
+        public string About="";        
+        public Product(int id,string name,string about)
         {
             this.id = id;
             Name = name;
-            this.count = count;
-            this.price = price;
             About = about;
         }
     }

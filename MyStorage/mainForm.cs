@@ -26,7 +26,9 @@ namespace MyStorage
 
         private void ShowFormAuthorization()
         {
-            new AuthorizationForm().ShowDialog();
+            var auForm = new AuthorizationForm();
+            //auForm.Parent = this.ParentForm;
+            auForm.ShowDialog();
         }
 
         private void входToolStripMenuItem_Click(object sender, EventArgs e)

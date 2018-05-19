@@ -8,8 +8,8 @@ namespace MyStorage.DataModel
 {
     class Manager : User
     {
-        public Manager(int id, string fio, string phonenumber, string role,string passhash,string login) 
-            : base(id, fio, phonenumber, role,passhash,login)
+        public Manager(User u) 
+            : base(u.ID, u.Role, u.Name, u.Middle_name, u.Last_name, u.Login, u.Hashpass)
         {
         }
     }

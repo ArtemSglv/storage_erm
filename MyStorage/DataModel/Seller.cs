@@ -8,9 +8,17 @@ namespace MyStorage.DataModel
 {
     class Seller : User
     {
-        public Seller(int id, string fio, string phonenumber, string role,string passhash,string login) 
-            : base(id, fio, phonenumber, role,passhash,login)
+        public Seller(User u)
+            : base(u.ID, u.Role, u.Name, u.Middle_name, u.Last_name, u.Login, u.Hashpass)
         {
+        }
+        public override void Sale()
+        {
+
+        }
+        public override void Show()
+        {
+            
         }
     }
 }

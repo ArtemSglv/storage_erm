@@ -10,24 +10,27 @@ using System.Security.Cryptography;
 namespace MyStorage
 {
     class Authenticator
-    {
-
-        public static bool CheckUser(string login, string pass)
+    {       
+        public static void Login(string login, string pass)
         {
-            //User resUser = null;
             DB.Connect();
 
-            List<string> list = DB.Select("select * from users where passhash='" + CalculateMD5Hash(pass) + "' and login='" + login + "';");
+            string user_str = DB.SelectUser(CalculateMD5Hash(pass), login);
 
-            if (list.Count() == 1)
+            if (user_str != "")
             {
-                var splitArr = list[0].Split(' ');
-                CurrentUser.user = new User(Convert.ToInt32(splitArr[0]), splitArr[1], splitArr[2], splitArr[3], splitArr[4], splitArr[5]);
+                var splitArr = user_str.Split(' ');
+                CurrentUser.user = new User(Convert.ToInt32(splitArr[0]), splitArr[1], splitArr[2], splitArr[3], splitArr[4], splitArr[5], splitArr[6]);
+                switch(CurrentUser.user.Role)
+                {
+                    case "Seller": { CurrentUser.user = new Seller(CurrentUser.user); break; }
+                    case "Storekeeper": { CurrentUser.user = new Storekeeper(CurrentUser.user); break; }
+                    case "Manager": { CurrentUser.user = new Manager(CurrentUser.user); break; }
+                }                
             }
             else { throw new AuthenticationException("Пользователь не найден!\r\nПроверьте логин и пароль!"); }
-
-            return true;
         }
+
         private static string CalculateMD5Hash(string input)
         {
 

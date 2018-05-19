@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MyStorage.DataModel;
 
 namespace MyStorage
 {
@@ -21,18 +22,18 @@ namespace MyStorage
         {
             try
             {
-                if (Authenticator.CheckUser(textBoxLogin.Text, textBoxPass.Text))
-                    switch (CurrentUser.user.Role)
-                    {
-                        case "seller": { new StoreForm().Show(); break; }
-                        case "storekeeper": { new StorageForm().Show(); break; }
-                        case "manager": { new PartnerForm().Show(); break; }
-                    }
+                Authenticator.Login(textBoxLogin.Text, textBoxPass.Text);
+                switch (CurrentUser.user.Role)
+                {
+                    case "Seller": { var sf=new StoreForm(); sf.Show(); break; }
+                    case "Storekeeper": { new StorageForm().Show(); break; }
+                    case "Manager": { new PartnerForm().Show(); break; }
+                }
                 Close();
             }
-            catch(AuthenticationException ex)
-            { MessageBox.Show(ex.Message);}
-            
+            catch (AuthenticationException ex)
+            { MessageBox.Show(ex.Message); }
+
         }
     }
 }

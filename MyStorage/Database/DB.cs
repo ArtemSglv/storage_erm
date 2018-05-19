@@ -34,7 +34,7 @@ namespace MyStorage.Database
             MySqlCommand msc = new MySqlCommand(sql, connection);
             msc.ExecuteNonQuery();
         }
-        public static List<string> Select(string sql)
+        public static List<string> Select(string sql) //select all fields and all rows
         {
             List<string> result = new List<string>();
             string str = "";
@@ -54,6 +54,25 @@ namespace MyStorage.Database
                 }
             }
             return result;
+        }
+        public static string SelectUser(string pass,string login) //select 1 need user
+        {
+            string str = "";
+            using (MySqlCommand command = connection.CreateCommand())
+            {
+                command.CommandText = "select u.id,roles.name,u.name,u.middle_name,u.lastname,u.hashpass,u.login from users u " +
+                    "join roles on u.role_id=roles.id where login='"+login+"' and hashpass='"+pass + "';";
+                using (var r = command.ExecuteReader())
+                {
+                    while (r.Read())
+                    {
+
+                        for (int i = 0; i < r.FieldCount; i++)
+                            str += r[i] + " ";
+                    }
+                }
+            }
+            return str;
         }
 
         public static string SelectOne(string sql)
