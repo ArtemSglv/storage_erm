@@ -42,6 +42,13 @@
             this.labelShop = new System.Windows.Forms.Label();
             this.comboBoxShops = new System.Windows.Forms.ComboBox();
             this.panelReceipt = new System.Windows.Forms.Panel();
+            this.comboBoxPartner = new System.Windows.Forms.ComboBox();
+            this.comboBoxShopReceipt = new System.Windows.Forms.ComboBox();
+            this.labelPartner = new System.Windows.Forms.Label();
+            this.labelShopReceipt = new System.Windows.Forms.Label();
+            this.butConfirmReceipt = new System.Windows.Forms.Button();
+            this.labelProd = new System.Windows.Forms.Label();
+            this.comboBoxProd = new System.Windows.Forms.ComboBox();
             this.panelRemain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRemain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSale)).BeginInit();
@@ -119,11 +126,10 @@
             // dataGridViewReceipt
             // 
             this.dataGridViewReceipt.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewReceipt.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewReceipt.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewReceipt.Location = new System.Drawing.Point(30, 113);
             this.dataGridViewReceipt.Name = "dataGridViewReceipt";
             this.dataGridViewReceipt.RowTemplate.Height = 24;
-            this.dataGridViewReceipt.Size = new System.Drawing.Size(453, 302);
+            this.dataGridViewReceipt.Size = new System.Drawing.Size(400, 154);
             this.dataGridViewReceipt.TabIndex = 0;
             // 
             // panelSale
@@ -132,6 +138,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelSale.AutoSize = true;
+            this.panelSale.Controls.Add(this.panelReceipt);
             this.panelSale.Controls.Add(this.buttonConfirm);
             this.panelSale.Controls.Add(this.labelProduct);
             this.panelSale.Controls.Add(this.comboBoxProducts);
@@ -140,7 +147,7 @@
             this.panelSale.Controls.Add(this.dataGridViewSale);
             this.panelSale.Location = new System.Drawing.Point(135, 10);
             this.panelSale.Name = "panelSale";
-            this.panelSale.Size = new System.Drawing.Size(453, 302);
+            this.panelSale.Size = new System.Drawing.Size(458, 305);
             this.panelSale.TabIndex = 3;
             // 
             // buttonConfirm
@@ -195,12 +202,83 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelReceipt.AutoSize = true;
+            this.panelReceipt.Controls.Add(this.labelProd);
+            this.panelReceipt.Controls.Add(this.comboBoxProd);
+            this.panelReceipt.Controls.Add(this.butConfirmReceipt);
+            this.panelReceipt.Controls.Add(this.labelShopReceipt);
+            this.panelReceipt.Controls.Add(this.labelPartner);
+            this.panelReceipt.Controls.Add(this.comboBoxShopReceipt);
+            this.panelReceipt.Controls.Add(this.comboBoxPartner);
             this.panelReceipt.Controls.Add(this.dataGridViewReceipt);
             this.panelReceipt.Location = new System.Drawing.Point(135, 10);
             this.panelReceipt.Name = "panelReceipt";
-            this.panelReceipt.Size = new System.Drawing.Size(453, 302);
+            this.panelReceipt.Size = new System.Drawing.Size(458, 305);
             this.panelReceipt.TabIndex = 3;
-            this.panelReceipt.Visible = false;
+            
+            // 
+            // comboBoxPartner
+            // 
+            this.comboBoxPartner.FormattingEnabled = true;
+            this.comboBoxPartner.Location = new System.Drawing.Point(30, 32);
+            this.comboBoxPartner.Name = "comboBoxPartner";
+            this.comboBoxPartner.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxPartner.TabIndex = 1;
+            this.comboBoxPartner.SelectedIndexChanged += new System.EventHandler(this.comboBoxPartner_SelectedIndexChanged);
+            // 
+            // comboBoxShopReceipt
+            // 
+            this.comboBoxShopReceipt.FormattingEnabled = true;
+            this.comboBoxShopReceipt.Location = new System.Drawing.Point(30, 83);
+            this.comboBoxShopReceipt.Name = "comboBoxShopReceipt";
+            this.comboBoxShopReceipt.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxShopReceipt.TabIndex = 2;
+            this.comboBoxShopReceipt.SelectedIndexChanged += new System.EventHandler(this.comboBoxShopReceipt_SelectedIndexChanged);
+            // 
+            // labelPartner
+            // 
+            this.labelPartner.AutoSize = true;
+            this.labelPartner.Location = new System.Drawing.Point(27, 6);
+            this.labelPartner.Name = "labelPartner";
+            this.labelPartner.Size = new System.Drawing.Size(55, 17);
+            this.labelPartner.TabIndex = 3;
+            this.labelPartner.Text = "Partner";
+            // 
+            // labelShopReceipt
+            // 
+            this.labelShopReceipt.AutoSize = true;
+            this.labelShopReceipt.Location = new System.Drawing.Point(27, 62);
+            this.labelShopReceipt.Name = "labelShopReceipt";
+            this.labelShopReceipt.Size = new System.Drawing.Size(41, 17);
+            this.labelShopReceipt.TabIndex = 4;
+            this.labelShopReceipt.Text = "Shop";
+            // 
+            // butConfirmReceipt
+            // 
+            this.butConfirmReceipt.Location = new System.Drawing.Point(355, 274);
+            this.butConfirmReceipt.Name = "butConfirmReceipt";
+            this.butConfirmReceipt.Size = new System.Drawing.Size(75, 23);
+            this.butConfirmReceipt.TabIndex = 5;
+            this.butConfirmReceipt.Text = "Confirm";
+            this.butConfirmReceipt.UseVisualStyleBackColor = true;
+            this.butConfirmReceipt.Click += new System.EventHandler(this.butConfirmReceipt_Click);
+            // 
+            // labelProd
+            // 
+            this.labelProd.AutoSize = true;
+            this.labelProd.Location = new System.Drawing.Point(171, 62);
+            this.labelProd.Name = "labelProd";
+            this.labelProd.Size = new System.Drawing.Size(57, 17);
+            this.labelProd.TabIndex = 7;
+            this.labelProd.Text = "Product";
+            // 
+            // comboBoxProd
+            // 
+            this.comboBoxProd.FormattingEnabled = true;
+            this.comboBoxProd.Location = new System.Drawing.Point(174, 83);
+            this.comboBoxProd.Name = "comboBoxProd";
+            this.comboBoxProd.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxProd.TabIndex = 6;
+            this.comboBoxProd.SelectedIndexChanged += new System.EventHandler(this.comboBoxProd_SelectedIndexChanged);
             // 
             // StoreForm
             // 
@@ -209,8 +287,8 @@
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(600, 324);
             this.Controls.Add(this.panelSale);
-            this.Controls.Add(this.panelReceipt);
             this.Controls.Add(this.panelRemain);
+            this.Controls.Add(this.panelReceipt);
             this.Controls.Add(this.butRemain);
             this.Controls.Add(this.butSale);
             this.Controls.Add(this.butReceipt);
@@ -227,6 +305,7 @@
             this.panelSale.ResumeLayout(false);
             this.panelSale.PerformLayout();
             this.panelReceipt.ResumeLayout(false);
+            this.panelReceipt.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -248,5 +327,12 @@
         private System.Windows.Forms.Label labelProduct;
         private System.Windows.Forms.ComboBox comboBoxProducts;
         private System.Windows.Forms.Label labelShop;
+        private System.Windows.Forms.Button butConfirmReceipt;
+        private System.Windows.Forms.Label labelShopReceipt;
+        private System.Windows.Forms.Label labelPartner;
+        private System.Windows.Forms.ComboBox comboBoxShopReceipt;
+        private System.Windows.Forms.ComboBox comboBoxPartner;
+        private System.Windows.Forms.Label labelProd;
+        private System.Windows.Forms.ComboBox comboBoxProd;
     }
 }

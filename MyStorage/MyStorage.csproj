@@ -68,7 +68,7 @@
     <Compile Include="CurrentUser.cs" />
     <Compile Include="Database\DB.cs" />
     <Compile Include="DataModel\Manager.cs" />
-    <Compile Include="Database\Partner.cs" />
+    <Compile Include="Database\Client.cs" />
     <Compile Include="Database\Product.cs" />
     <Compile Include="DataModel\Seller.cs" />
     <Compile Include="Database\Storage.cs" />
