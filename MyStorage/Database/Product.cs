@@ -8,14 +8,34 @@ namespace MyStorage.DataModel
 {
     class Product
     {
-        public int id;
-        public string Name="";        
-        public string About="";        
-        public Product(int id,string name,string about)
+        private int id;
+        private string name;
+        private string about;
+        private int count;
+        private double price;
+        public Product(int id,string name,string about,int count, double price)
         {
             this.id = id;
-            Name = name;
-            About = about;
+            this.name = name;
+            this.about = about;
+            this.count = count;
+            this.price = price;
         }
+        public Product(Product pr)
+        {
+            id = pr.id;
+            name = pr.name;
+            about = pr.about;
+            count = pr.count;
+            price = pr.price;
+        }
+
+        public double Price { get => price; set => price = value; }
+        public int Id { get => id; set => id = value; }
+        public string Name { get => name; set => name = value; }
+        public string About { get => about; set => about = value; }
+        public int Count {
+            get => count;
+            set => count = value; }
     }
 }

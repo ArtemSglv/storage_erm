@@ -29,7 +29,7 @@ namespace MyStorage.Database
             MySqlCommand msc = new MySqlCommand(sql, connection);
             msc.ExecuteNonQuery();
         }
-        public static void Update(string sql) // пока просто так ))
+        public static void Update(string sql)
         {
             MySqlCommand msc = new MySqlCommand(sql, connection);
             msc.ExecuteNonQuery();
@@ -37,7 +37,7 @@ namespace MyStorage.Database
         public static List<string> Select(string sql) //select all fields and all rows
         {
             List<string> result = new List<string>();
-            string str = "";
+            string str;
             using (MySqlCommand command = connection.CreateCommand())
             {
                 command.CommandText = sql;
@@ -45,7 +45,7 @@ namespace MyStorage.Database
                 {
                     while (r.Read())
                     {
-
+                        str = "";
                         for (int i = 0; i < r.FieldCount; i++)
                             //result += (int)r[0] + " " + r[1] + "$";
                             str += r[i] + " ";

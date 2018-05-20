@@ -17,43 +17,155 @@ namespace MyStorage
     {
         MySqlDataAdapter mySqlDataAdapter;
         DataSet ds;
+        List<Store> stores = new List<Store>();
+        Store cur_shop = new Store();
+        BindingList<Product> bindingList;
+
         public StoreForm()
         {
-            InitializeComponent();            
+            InitializeComponent();
+            panelRemain.Visible = false;
+            panelSale.Visible = false;
+            panelReceipt.Visible = false;
+            bindingList = new BindingList<Product>();
+
+            dataGridViewSale.Width = 350;
+            dataGridViewSale.Height = 130;
+            dataGridViewSale.RowHeadersWidth = 10;
+            dataGridViewSale.AllowUserToAddRows = false;
+            dataGridViewSale.AllowUserToDeleteRows = false;
+            dataGridViewSale.AllowUserToResizeColumns = false;
+            dataGridViewSale.AllowUserToResizeRows = false;
+
+            dataGridViewSale.AutoGenerateColumns = false;
+
+            //create the column programatically
+            DataGridViewCell cell = new DataGridViewTextBoxCell();
+            DataGridViewTextBoxColumn colName = new DataGridViewTextBoxColumn()
+            {
+                CellTemplate = cell,
+                Name = "name",
+                HeaderText = "Product",
+                DataPropertyName = "Name",
+                Width = 350 - 50 - 50 - 10,
+                ReadOnly = true
+            };
+            DataGridViewTextBoxColumn colPrice = new DataGridViewTextBoxColumn()
+            {
+                CellTemplate = cell,
+                Name = "price",
+                HeaderText = "Price",
+                DataPropertyName = "Price",
+                Width = 50,
+                ReadOnly = true
+            };
+            DataGridViewTextBoxColumn colCount = new DataGridViewTextBoxColumn()
+            {
+                CellTemplate = cell,
+                Name = "count",
+                HeaderText = "Count",
+                DataPropertyName = "Count",
+                Width = 50
+            };
+
+            dataGridViewSale.Columns.Add(colName);
+            dataGridViewSale.Columns.Add(colPrice);
+            dataGridViewSale.Columns.Add(colCount);
+            dataGridViewSale.DataSource = bindingList;
+        }
+        private void StoreForm_Load(object sender, EventArgs e)
+        {
+            Focus();
         }
 
-        private void GetProducts()
+        private void EnablePanel(string namePanel)
         {
-            string sql = "select lp.prod_id as 'ID', pos.name as 'Магазин', pr.name as 'Название товара', lp.count as 'Кол-во', pr.description as 'Описание', lp.price as 'Цена'"+
+            foreach (Panel p in Controls.OfType<Panel>())
+                p.Visible = p.Name == namePanel ? true : false;            
+        }
+
+        //Remains
+        private void butRemain_Click(object sender, EventArgs e)
+        {
+            EnablePanel(panelRemain.Name);
+            GetRemains();
+            dataGridViewRemain.DataSource = ds.Tables[0];
+            dataGridViewRemain.Columns[0].Visible = false;
+        }
+        private void GetRemains()
+        {
+            string sql = "select lp.prod_id as 'ID', pos.name as 'Магазин', pr.name as 'Название товара', lp.count as 'Кол-во', pr.description as 'Описание', lp.price as 'Цена'" +
                          "from listproducts lp join products pr on lp.prod_id = pr.id join placesofsale pos on pos.id = lp.place_id where pos.type_id = (select id from typeplace where type = 'shop'); ";
             mySqlDataAdapter = new MySqlDataAdapter(sql, DB.connection);
             ds = new DataSet();
             mySqlDataAdapter.Fill(ds);
         }
-        private void butRemain_Click(object sender, EventArgs e)
-        {
-            GetProducts();            
-            dataGridView.DataSource = ds.Tables[0];
-            dataGridView.Columns[0].Visible = false;
-            //panel.Visible = true;
-            //dataGridView.Visible = true;
-            CurrentUser.user.Sale();
-        }
 
+        //Sale
         private void butSale_Click(object sender, EventArgs e)
         {
-            GetProducts();
-            panel.Visible = false;
-            panelSale.Visible = true;
-            Store store = new Store();
-            foreach (DataRow row in ds.Tables[0].Rows)
-                store.products.Add(new Product((int)row[0],row[1].ToString(),Convert.ToString(row[3])));
-
+            EnablePanel(panelSale.Name);
+            comboBoxShops.Items.Clear();
+            GetShops();
         }
 
-        private void StoreForm_Load(object sender, EventArgs e)
+        private void GetShops()
         {
-            Focus();
+            string sql = "select id,name from placesofsale where type_id=(select id from typeplace where type='shop');";
+            var list = DB.Select(sql);
+            stores.Clear();
+            list.ForEach(l => { var ls = l.Split(' '); stores.Add(new Store(Convert.ToInt32(ls[0]), ls[1])); });
+            stores.ForEach(s => comboBoxShops.Items.Add(s.name));
+        }
+        private void comboBoxShops_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cur_shop = stores.Find(s => s.name == comboBoxShops.SelectedItem.ToString());
+            bindingList.Clear();
+            GetProducts();
+        }
+
+        private void GetProducts()
+        {
+            string sql = "select lp.prod_id, pr.name, pr.description, lp.count, lp.price" +
+                         " from listproducts lp join products pr on lp.prod_id = pr.id join placesofsale pos on pos.id = lp.place_id" +
+                         " where pos.id =" + cur_shop.id + ";";
+            var list = DB.Select(sql);
+            cur_shop.products.Clear();
+            list.ForEach(l => { var ls = l.Split(' '); cur_shop.products.Add(new Product(Convert.ToInt32(ls[0]), ls[1], ls[2], Convert.ToInt32(ls[3]), Convert.ToDouble(ls[4]))); });
+            comboBoxProducts.Items.Clear();
+            cur_shop.products.ForEach(x => comboBoxProducts.Items.Add(x.Name));
+        }
+        private void comboBoxProducts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var pr = cur_shop.products.Find(p => p.Name == comboBoxProducts.SelectedItem.ToString());
+            if (!bindingList.ToList().Exists(x => x.Name == pr.Name))
+                bindingList.Add(new Product(pr));
+        }
+
+        private void buttonConfirm_Click(object sender, EventArgs e)
+        {
+            bindingList.ToList().ForEach(sale_prod => cur_shop.products.Find(old_prod => old_prod.Name == sale_prod.Name).Count -= sale_prod.Count);
+            UpdateShop();
+            bindingList.Clear();
+        }
+        private void UpdateShop()
+        {
+            string sql = "";
+            cur_shop.products.ForEach((prod) =>
+            {
+                sql = "update listproducts set count =" + prod.Count + " where prod_id=" + prod.Id + " and place_id=" + cur_shop.id + ";";
+                DB.Update(sql);
+            });
+            MessageBox.Show("Data successfully updated!");
+            GetProducts();
+        }
+
+        //Receipt
+        private void butReceipt_Click(object sender, EventArgs e)
+        {
+            EnablePanel(panelReceipt.Name);
+
+
         }
     }
 }
