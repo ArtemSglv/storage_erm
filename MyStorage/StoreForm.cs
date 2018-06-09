@@ -138,7 +138,7 @@ namespace MyStorage
         }
         private void GetRemains()
         {
-            string sql = "select lp.prod_id as 'ID', pos.name as 'Магазин', pr.name as 'Название товара', lp.count as 'Кол-во', pr.description as 'Описание', lp.price as 'Цена'" +
+            string sql = "select lp.prod_id as 'ID', pos.name as 'Shop', pr.name as 'Prodact name', lp.count as 'Count', pr.description as 'Description', lp.price as 'Price'" +
                          "from listproducts lp join products pr on lp.prod_id = pr.id join placesofsale pos on pos.id = lp.place_id where pos.type_id = (select id from typeplace where type = 'shop'); ";
             mySqlDataAdapter = new MySqlDataAdapter(sql, DB.connection);
             ds = new DataSet();

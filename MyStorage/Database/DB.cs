@@ -13,7 +13,7 @@ namespace MyStorage.Database
 
         public static void Connect()
         {
-            string server = "localhost";
+            string server = "192.168.220.184";//"192.168.220.246";//"192.168.1.2";
             string database = "mystorage";
             string uid = "root";
             string password = "root";

@@ -30,6 +30,14 @@ namespace MyStorage.DataModel
             this.middle_name = string.Empty;
             this.last_name = string.Empty;
         }
+        public Client(Client cl)
+        {
+            this.id = cl.ID;
+            this.cl_type = cl.Cl_type;
+            this.name = cl.Name;
+            this.middle_name = cl.Middle_name;
+            this.last_name = cl.Last_name;
+        }
 
         private int id;
         private string cl_type;

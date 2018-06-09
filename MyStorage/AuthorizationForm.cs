@@ -27,7 +27,7 @@ namespace MyStorage
                 {
                     case "Seller": { var sf=new StoreForm(); sf.Show(); break; }
                     case "Storekeeper": { new StorageForm().Show(); break; }
-                    case "Manager": { new PartnerForm().Show(); break; }
+                    case "Manager": { new ProviderForm().Show(); break; }
                 }
                 Close();
             }
